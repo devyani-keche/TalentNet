@@ -1,15 +1,14 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { 
-  Conversation, 
-  Message, 
-  User, 
+  conversations, 
+  messages,
   findUserById, 
   getUserConversations, 
   getConversationMessages,
-  messages,
   generateId 
 } from '@/lib/data';
+import { Conversation, Message, User } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Send, Info, MoreVertical, Phone, Video, Search, PaperclipIcon, Smile, Image, File, CheckCheck } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -29,23 +28,60 @@ import { formatDistanceToNow } from 'date-fns';
 
 interface MessageInterfaceProps {
   userId?: string;
+  initialContactId?: string;
 }
 
-const MessageInterface: React.FC<MessageInterfaceProps> = ({ userId = '1' }) => {
-  const [conversations, setConversations] = useState<Conversation[]>(getUserConversations(userId));
-  const [activeConversation, setActiveConversation] = useState<Conversation | null>(conversations[0] || null);
+const MessageInterface: React.FC<MessageInterfaceProps> = ({ userId = '1', initialContactId }) => {
+  const [conversationList, setConversationList] = useState<Conversation[]>(getUserConversations(userId));
+  const [activeConversation, setActiveConversation] = useState<Conversation | null>(null);
   const [conversationMessages, setConversationMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const otherUser = activeConversation 
-    ? findUserById(activeConversation.participants.find(id => id !== userId) || '') 
-    : null;
+  const [otherUser, setOtherUser] = useState<User | null>(null);
 
+  // If initialContactId is provided, find or create that conversation
+  useEffect(() => {
+    if (initialContactId) {
+      // Find if conversation exists
+      const existingConversation = conversationList.find(
+        c => c.participants.includes(initialContactId)
+      );
+      
+      if (existingConversation) {
+        setActiveConversation(existingConversation);
+      } else {
+        // Create a new conversation
+        const newConversation: Conversation = {
+          id: generateId(),
+          participants: [userId, initialContactId],
+          unreadCount: 0
+        };
+        
+        // Update conversations and set as active
+        setConversationList(prev => [...prev, newConversation]);
+        setActiveConversation(newConversation);
+        conversations.push(newConversation);
+      }
+    } else if (conversationList.length > 0) {
+      // If no initialContactId is provided, use the first conversation
+      setActiveConversation(conversationList[0]);
+    }
+  }, [initialContactId, userId, conversationList]);
+
+  // Update otherUser when activeConversation changes
   useEffect(() => {
     if (activeConversation) {
+      const otherParticipantId = activeConversation.participants.find(id => id !== userId);
+      if (otherParticipantId) {
+        const user = findUserById(otherParticipantId);
+        if (user) {
+          setOtherUser(user);
+        }
+      }
+      
       setConversationMessages(getConversationMessages(activeConversation.id));
     }
-  }, [activeConversation]);
+  }, [activeConversation, userId]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -104,7 +140,7 @@ const MessageInterface: React.FC<MessageInterfaceProps> = ({ userId = '1' }) => 
           <TabsContent value="all" className="flex-1 data-[state=active]:flex flex-col overflow-hidden">
             <ScrollArea className="flex-1">
               <div className="space-y-1 p-2">
-                {conversations.map(conversation => {
+                {conversationList.map(conversation => {
                   const otherParticipantId = conversation.participants.find(id => id !== userId);
                   const otherParticipant = findUserById(otherParticipantId || '');
                   const lastMessage = getConversationMessages(conversation.id).pop();
@@ -164,7 +200,7 @@ const MessageInterface: React.FC<MessageInterfaceProps> = ({ userId = '1' }) => 
           <TabsContent value="unread" className="flex-1 data-[state=active]:flex flex-col overflow-hidden">
             <ScrollArea className="flex-1">
               <div className="space-y-1 p-2">
-                {conversations.filter(c => c.unreadCount > 0).map(conversation => {
+                {conversationList.filter(c => c.unreadCount > 0).map(conversation => {
                   const otherParticipantId = conversation.participants.find(id => id !== userId);
                   const otherParticipant = findUserById(otherParticipantId || '');
                   const lastMessage = getConversationMessages(conversation.id).pop();
@@ -211,7 +247,7 @@ const MessageInterface: React.FC<MessageInterfaceProps> = ({ userId = '1' }) => 
                   );
                 })}
                 
-                {conversations.filter(c => c.unreadCount > 0).length === 0 && (
+                {conversationList.filter(c => c.unreadCount > 0).length === 0 && (
                   <div className="p-8 text-center">
                     <p className="text-muted-foreground">No unread messages</p>
                   </div>

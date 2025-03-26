@@ -1,10 +1,14 @@
 
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import MessageInterface from '@/components/messaging/MessageInterface';
 
 const Messages = () => {
+  const location = useLocation();
+  const contactId = location.state?.contactId || undefined;
+  
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -18,7 +22,7 @@ const Messages = () => {
               Connect with your network through secure, direct messaging.
             </p>
             
-            <MessageInterface />
+            <MessageInterface initialContactId={contactId} />
           </div>
         </div>
       </main>

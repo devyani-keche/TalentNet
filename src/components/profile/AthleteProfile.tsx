@@ -1,6 +1,7 @@
-
 import React, { useState } from 'react';
-import { Athlete, findUserById, getUserConnections } from '@/lib/data';
+import { useNavigate } from 'react-router-dom';
+import { findUserById, getUserConnections } from '@/lib/data';
+import { Athlete } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -16,10 +17,11 @@ interface AthleteProfileProps {
 const AthleteProfile: React.FC<AthleteProfileProps> = ({ athleteId = '1' }) => {
   const [isConnectHovered, setIsConnectHovered] = useState(false);
   const [isMessageHovered, setIsMessageHovered] = useState(false);
-  const athlete = findUserById(athleteId) as Athlete;
+  const navigate = useNavigate();
+  const user = findUserById(athleteId);
   const connections = getUserConnections(athleteId);
 
-  if (!athlete) {
+  if (!user) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
@@ -29,6 +31,8 @@ const AthleteProfile: React.FC<AthleteProfileProps> = ({ athleteId = '1' }) => {
       </div>
     );
   }
+
+  const athlete = user as Athlete;
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -50,9 +54,7 @@ const AthleteProfile: React.FC<AthleteProfileProps> = ({ athleteId = '1' }) => {
   };
 
   const handleMessage = () => {
-    toast('Starting conversation', {
-      description: `Opening chat with ${athlete.name}.`,
-    });
+    navigate('/messages');
   };
 
   return (
@@ -60,11 +62,9 @@ const AthleteProfile: React.FC<AthleteProfileProps> = ({ athleteId = '1' }) => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-1">
           <div className="neo-card overflow-hidden sticky top-24">
-            {/* Banner background */}
             <div className="h-24 bg-gradient-to-r from-primary/20 to-blue-400/20"></div>
             
             <div className="px-6 pb-6 relative">
-              {/* Avatar */}
               <div className="relative -mt-12 mb-4 flex justify-center">
                 <div className="w-24 h-24 rounded-full border-4 border-white overflow-hidden shadow-sm">
                   <img 
@@ -74,7 +74,6 @@ const AthleteProfile: React.FC<AthleteProfileProps> = ({ athleteId = '1' }) => {
                   />
                 </div>
                 
-                {/* Ranking badge */}
                 <div className="absolute -right-2 bottom-0 bg-primary rounded-full w-8 h-8 flex items-center justify-center text-white font-bold text-xs border-2 border-white shadow-sm">
                   #{athlete.ranking}
                 </div>
@@ -89,7 +88,6 @@ const AthleteProfile: React.FC<AthleteProfileProps> = ({ athleteId = '1' }) => {
                 </div>
                 <p className="text-muted-foreground">{athlete.sport}</p>
                 
-                {/* Sponsorships badge */}
                 <div className="mt-2">
                   <Badge variant="outline" className="bg-green-50 text-green-600 hover:bg-green-50">
                     {athlete.sponsorships} Sponsorships
@@ -280,8 +278,8 @@ const AthleteProfile: React.FC<AthleteProfileProps> = ({ athleteId = '1' }) => {
                     {athlete.sponsorships > 0 ? (
                       Array.from({ length: athlete.sponsorships }).map((_, index) => (
                         <div key={index} className="flex items-center p-4 rounded-lg border border-border hover:shadow-soft transition-shadow cursor-pointer">
-                          <div className="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center mr-4">
-                            <div className="text-xs font-semibold">LOGO</div>
+                          <div className="w-12 h-12 rounded-lg flex items-center justify-center mr-4 overflow-hidden">
+                            <img src={`https://images.unsplash.com/photo-1614680376408-81e91ffe3db7?ixlib=rb-4.0.3&auto=format&fit=crop&w=64&h=64&q=80`} alt="Sponsor logo" className="w-full h-full object-contain" />
                           </div>
                           <div>
                             <h3 className="font-medium">{['Global Sports Co.', 'HealthFit Nutrition', 'Tech Athletics', 'Performance Gear', 'Elite Sportswear'][index % 5]}</h3>

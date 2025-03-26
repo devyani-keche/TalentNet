@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { User } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { MessageSquare, UserPlus, UserCheck, ChevronRight, Check } from 'lucide-react';
@@ -16,6 +16,7 @@ const ConnectionCard: React.FC<ConnectionCardProps> = ({ user, isConnected = fal
     isConnected ? 'connected' : 'none'
   );
   const [isHovered, setIsHovered] = useState(false);
+  const navigate = useNavigate();
 
   const handleConnect = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -40,9 +41,8 @@ const ConnectionCard: React.FC<ConnectionCardProps> = ({ user, isConnected = fal
     e.preventDefault();
     e.stopPropagation();
     
-    toast('Starting conversation', {
-      description: `Opening chat with ${user.name}.`,
-    });
+    // Navigate to messages with this contact
+    navigate('/messages');
   };
 
   const getRoleColor = (role: string) => {
@@ -62,15 +62,19 @@ const ConnectionCard: React.FC<ConnectionCardProps> = ({ user, isConnected = fal
     if (user.role === 'athlete') {
       return `/profile/${user.id}`;
     }
-    return `/${user.role}/${user.id}`;
+    return `/profile/${user.id}`;
+  };
+
+  const handleCardClick = () => {
+    navigate(getProfileLink());
   };
 
   return (
-    <Link
-      to={getProfileLink()}
-      className="block"
+    <div
+      className="block cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={handleCardClick}
     >
       <div className={`neo-card p-4 transition-all duration-300 ${isHovered ? 'shadow-elevated -translate-y-1' : ''}`}>
         <div className="flex items-center">
@@ -148,7 +152,7 @@ const ConnectionCard: React.FC<ConnectionCardProps> = ({ user, isConnected = fal
           </Button>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

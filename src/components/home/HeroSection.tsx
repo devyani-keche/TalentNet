@@ -1,10 +1,12 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
 const HeroSection = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
       {/* Background gradient */}
@@ -31,11 +33,19 @@ const HeroSection = () => {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="group">
+              <Button 
+                size="lg" 
+                className="group"
+                onClick={() => navigate('/network')}
+              >
                 Start Connecting
                 <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button size="lg" variant="outline">
+              <Button 
+                size="lg" 
+                variant="outline"
+                onClick={() => navigate('/leaderboard')}
+              >
                 Learn More
               </Button>
             </div>
@@ -43,10 +53,18 @@ const HeroSection = () => {
             <div className="pt-6 border-t border-border">
               <p className="text-sm text-muted-foreground mb-3">Trusted by top-tier athletes and sponsors worldwide</p>
               <div className="flex flex-wrap gap-6 items-center">
-                <div className="text-muted-foreground/60 font-display font-medium">SPONSOR 1</div>
-                <div className="text-muted-foreground/60 font-display font-medium">SPONSOR 2</div>
-                <div className="text-muted-foreground/60 font-display font-medium">SPONSOR 3</div>
-                <div className="text-muted-foreground/60 font-display font-medium">SPONSOR 4</div>
+                <div className="h-8 w-24 bg-white/80 rounded-md flex items-center justify-center">
+                  <img src="https://images.unsplash.com/photo-1614680376408-81e91ffe3db7?ixlib=rb-4.0.3&auto=format&fit=crop&w=120&h=40&q=80" alt="Adidas" className="h-5 w-auto" />
+                </div>
+                <div className="h-8 w-24 bg-white/80 rounded-md flex items-center justify-center">
+                  <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=120&h=40&q=80" alt="Nike" className="h-5 w-auto" />
+                </div>
+                <div className="h-8 w-24 bg-white/80 rounded-md flex items-center justify-center">
+                  <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=120&h=40&q=80" alt="Under Armour" className="h-5 w-auto" />
+                </div>
+                <div className="h-8 w-24 bg-white/80 rounded-md flex items-center justify-center">
+                  <img src="https://images.unsplash.com/photo-1620288627223-53302f4e8c74?ixlib=rb-4.0.3&auto=format&fit=crop&w=120&h=40&q=80" alt="Puma" className="h-5 w-auto" />
+                </div>
               </div>
             </div>
           </div>

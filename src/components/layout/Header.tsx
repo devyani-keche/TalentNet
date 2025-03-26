@@ -1,15 +1,25 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Bell, MessageSquare, Search, User, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { getUserNotifications, notifications } from '@/lib/data';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isMobile = useIsMobile();
   const location = useLocation();
+  const navigate = useNavigate();
+  const unreadNotifications = notifications.filter(n => !n.read).length;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +34,10 @@ const Header = () => {
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location.pathname]);
+
+  const handleMessageClick = () => {
+    navigate('/messages');
+  };
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -65,18 +79,44 @@ const Header = () => {
         </div>
 
         <div className="hidden md:flex items-center gap-4">
-          <Button variant="ghost" size="icon" className="relative">
-            <Bell size={20} />
-            <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-              3
-            </span>
-          </Button>
-          <Button variant="ghost" size="icon" className="relative">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="relative">
+                <Bell size={20} />
+                {unreadNotifications > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    {unreadNotifications}
+                  </span>
+                )}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-80">
+              <div className="p-2">
+                <h3 className="font-semibold mb-2">Notifications</h3>
+                <div className="space-y-2 max-h-[400px] overflow-y-auto">
+                  {notifications.map((notification) => (
+                    <div 
+                      key={notification.id} 
+                      className={`p-2 rounded-md text-sm ${notification.read ? 'bg-background' : 'bg-primary/5'}`}
+                    >
+                      <p className="font-medium">{notification.content}</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {new Date(notification.timestamp).toLocaleDateString()}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          
+          <Button variant="ghost" size="icon" className="relative" onClick={handleMessageClick}>
             <MessageSquare size={20} />
             <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
               5
             </span>
           </Button>
+          
           <Link to="/profile">
             <Button variant="ghost" size="icon">
               <User size={20} />
@@ -120,19 +160,19 @@ const Header = () => {
             </nav>
             
             <div className="flex items-center gap-4 pt-4 border-t">
-              <Button variant="ghost" size="icon" className="relative">
+              <Button variant="ghost" size="icon" className="relative" onClick={() => navigate('/notifications')}>
                 <Bell size={24} />
                 <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                   3
                 </span>
               </Button>
-              <Button variant="ghost" size="icon" className="relative">
+              <Button variant="ghost" size="icon" className="relative" onClick={() => navigate('/messages')}>
                 <MessageSquare size={24} />
                 <span className="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                   5
                 </span>
               </Button>
-              <Button variant="default" size="sm" className="ml-auto">
+              <Button variant="default" size="sm" className="ml-auto" onClick={() => navigate('/network')}>
                 Connect
               </Button>
             </div>
