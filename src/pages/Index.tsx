@@ -15,7 +15,7 @@ const Index = () => {
         <HeroSection />
         
         {/* Leaderboard Section with vibrant colors */}
-        <section className="py-24 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-indigo-950 dark:via-purple-950 dark:to-pink-950">
+        <section className="py-24 gradient-bg">
           <div className="container-custom">
             <motion.div 
               className="text-center mb-12"
@@ -31,7 +31,7 @@ const Index = () => {
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
                 viewport={{ once: true }}
               >
-                Hall of <span className="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-600 via-violet-600 to-indigo-600">Fame</span>
+                Hall of <span className="gradient-text">Fame</span>
               </motion.h2>
               <motion.p 
                 className="text-muted-foreground text-lg max-w-2xl mx-auto"

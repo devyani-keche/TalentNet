@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -16,16 +16,16 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 221 83% 53%;
+    --primary: 280 75% 60%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 40% 96%;
+    --secondary: 250 40% 96%;
     --secondary-foreground: 222 47% 11%;
 
     --muted: 210 40% 96%;
     --muted-foreground: 215 16% 47%;
 
-    --accent: 221 83% 53%;
+    --accent: 280 75% 60%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 84% 60%;
@@ -33,7 +33,7 @@
 
     --border: 214 32% 91%;
     --input: 214 32% 91%;
-    --ring: 221 83% 53%;
+    --ring: 280 75% 60%;
 
     --radius: 0.75rem;
 
@@ -44,7 +44,7 @@
     --sidebar-accent: 240 5% 96%;
     --sidebar-accent-foreground: 240 6% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217 91% 60%;
+    --sidebar-ring: 280 75% 60%;
   }
 
   .dark {
@@ -57,7 +57,7 @@
     --popover: 222 47% 11%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 217 91% 60%;
+    --primary: 280 75% 60%;
     --primary-foreground: 222 47% 11%;
 
     --secondary: 217 33% 17%;
@@ -66,7 +66,7 @@
     --muted: 217 33% 17%;
     --muted-foreground: 215 20% 65%;
 
-    --accent: 217 91% 60%;
+    --accent: 280 75% 60%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 63% 31%;
@@ -78,12 +78,12 @@
     
     --sidebar-background: 240 6% 10%;
     --sidebar-foreground: 240 5% 96%;
-    --sidebar-primary: 224 76% 48%;
+    --sidebar-primary: 280 75% 60%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 4% 16%;
     --sidebar-accent-foreground: 240 5% 96%;
     --sidebar-border: 240 4% 16%;
-    --sidebar-ring: 217 91% 60%;
+    --sidebar-ring: 280 75% 60%;
   }
 }
 
@@ -133,6 +133,26 @@
   
   .hover-scale {
     @apply transition-transform duration-200 hover:scale-105;
+  }
+  
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-fuchsia-500 to-pink-500;
+  }
+  
+  .gradient-text-alt {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-teal-400 via-cyan-500 to-indigo-500;
+  }
+  
+  .gradient-bg {
+    @apply bg-gradient-to-br from-purple-50 via-fuchsia-50 to-pink-50 dark:from-purple-950 dark:via-fuchsia-950 dark:to-pink-950;
+  }
+  
+  .gradient-bg-alt {
+    @apply bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50 dark:from-teal-950 dark:via-cyan-950 dark:to-blue-950;
+  }
+  
+  .gradient-border {
+    @apply border border-transparent bg-gradient-to-br from-purple-500 via-fuchsia-500 to-pink-500 bg-clip-border;
   }
 }
 

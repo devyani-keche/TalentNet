@@ -23,7 +23,7 @@ const Profile = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-grow pt-24 bg-gradient-to-br from-white via-slate-50 to-blue-50 dark:from-gray-900 dark:via-gray-900 dark:to-blue-950">
+      <main className="flex-grow pt-24 gradient-bg-alt">
         <AnimatePresence mode="wait">
           {id ? (
             <motion.div
