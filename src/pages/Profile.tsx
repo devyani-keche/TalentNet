@@ -7,24 +7,72 @@ import AthleteProfile from '@/components/profile/AthleteProfile';
 import MyProfile from '@/components/profile/MyProfile';
 import EditProfile from '@/components/profile/EditProfile';
 import Settings from '@/components/profile/Settings';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Profile = () => {
   const { id } = useParams<{ id: string }>();
   const [view, setView] = useState<'profile' | 'edit' | 'settings'>('profile');
   
+  // Animation variants
+  const pageVariants = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+    exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
+  };
+  
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-grow pt-24">
-        {id ? (
-          <AthleteProfile athleteId={id} />
-        ) : (
-          <>
-            {view === 'profile' && <MyProfile onEditProfile={() => setView('edit')} onSettings={() => setView('settings')} />}
-            {view === 'edit' && <EditProfile onBack={() => setView('profile')} />}
-            {view === 'settings' && <Settings onBack={() => setView('profile')} />}
-          </>
-        )}
+      <main className="flex-grow pt-24 bg-gradient-to-br from-white via-slate-50 to-blue-50 dark:from-gray-900 dark:via-gray-900 dark:to-blue-950">
+        <AnimatePresence mode="wait">
+          {id ? (
+            <motion.div
+              key="athlete-profile"
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              variants={pageVariants}
+            >
+              <AthleteProfile athleteId={id} />
+            </motion.div>
+          ) : (
+            <>
+              {view === 'profile' && (
+                <motion.div
+                  key="my-profile"
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={pageVariants}
+                >
+                  <MyProfile onEditProfile={() => setView('edit')} onSettings={() => setView('settings')} />
+                </motion.div>
+              )}
+              {view === 'edit' && (
+                <motion.div
+                  key="edit-profile"
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={pageVariants}
+                >
+                  <EditProfile onBack={() => setView('profile')} />
+                </motion.div>
+              )}
+              {view === 'settings' && (
+                <motion.div
+                  key="settings"
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  variants={pageVariants}
+                >
+                  <Settings onBack={() => setView('profile')} />
+                </motion.div>
+              )}
+            </>
+          )}
+        </AnimatePresence>
       </main>
       <Footer />
     </div>

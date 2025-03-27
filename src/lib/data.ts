@@ -1,4 +1,3 @@
-
 import { Athlete, ConnectionRequest, Conversation, Message, Notification, Scout, Sponsor, User, UserRole } from './types';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -7,7 +6,7 @@ const randomDate = (start = new Date(Date.now() - 31536000000), end = new Date()
   return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())).toISOString();
 };
 
-// Generate Athletes
+// Generate Athletes with more diverse data
 export const athletes: Athlete[] = [
   {
     id: '1',
@@ -16,7 +15,7 @@ export const athletes: Athlete[] = [
     avatar: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
     bio: 'Olympic gold medalist in 100m sprint. Passionate about inspiring the next generation of athletes.',
     sport: 'Track & Field',
-    achievements: ['Olympic Gold Medal', 'World Champion', '3x National Champion'],
+    achievements: ['Olympic Gold Medal 2020', 'World Record Holder 100m', '5x National Champion'],
     ranking: 1,
     connections: ['5', '8', '11'],
     sponsorships: 5,
@@ -31,7 +30,7 @@ export const athletes: Athlete[] = [
     avatar: 'https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
     bio: 'Professional basketball player with a focus on community outreach and youth development.',
     sport: 'Basketball',
-    achievements: ['WNBA Champion', 'MVP', 'All-Star 5x'],
+    achievements: ['WNBA Champion 2022', 'MVP Finals 2021', 'All-Star 5x'],
     ranking: 2,
     connections: ['6', '9', '12'],
     sponsorships: 4,
@@ -46,7 +45,7 @@ export const athletes: Athlete[] = [
     avatar: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
     bio: 'Tennis champion with a passion for sustainability and eco-friendly sports equipment.',
     sport: 'Tennis',
-    achievements: ['Grand Slam Winner', '2x Masters Champion', 'Davis Cup Winner'],
+    achievements: ['Grand Slam Winner 2023', 'ATP Masters Champion', 'Davis Cup Winner'],
     ranking: 3,
     connections: ['7', '10'],
     sponsorships: 3,
@@ -61,7 +60,7 @@ export const athletes: Athlete[] = [
     avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
     bio: 'Soccer player focused on advancing women in sports. Educational advocate and coach.',
     sport: 'Soccer',
-    achievements: ['World Cup Winner', 'Golden Boot', 'Champions League Winner'],
+    achievements: ['World Cup Winner 2023', 'Golden Boot 2022', 'Champions League Winner'],
     ranking: 4,
     connections: ['5', '8'],
     sponsorships: 2,
@@ -71,7 +70,7 @@ export const athletes: Athlete[] = [
   },
 ];
 
-// Generate Sponsors
+// Generate Sponsors with more diverse data
 export const sponsors: Sponsor[] = [
   {
     id: '5',
@@ -157,29 +156,36 @@ export const scouts: Scout[] = [
   },
 ];
 
-// Generate more diverse users 
+// Generate more diverse users with unique profiles
 const generateMoreUsers = (count: number): User[] => {
   const additionalUsers: User[] = [];
-  const sports = ['Soccer', 'Basketball', 'Tennis', 'Swimming', 'Gymnastics', 'Track & Field', 'Baseball', 'Football', 'Volleyball', 'Golf'];
-  const companies = ['Elevate Sports Inc.', 'Victory Vision', 'Peak Performance', 'Elite Talent Agency', 'Champion Sponsors', 'Victory Talent', 'Elite Scouting'];
-  const specialties = ['Equipment', 'Apparel', 'Nutrition', 'Technology', 'Media', 'Youth Development', 'Professional'];
+  const sports = ['Swimming', 'Gymnastics', 'Boxing', 'Cricket', 'Volleyball', 'Golf', 'Rugby', 'Badminton', 'Fencing', 'Archery'];
+  const companies = ['Quantum Athletics', 'Gold Medal Partners', 'Victory Sports Group', 'Elite Talent Agency', 'Champion Endorsements', 'Future Stars', 'Premier Scouting'];
+  const specialties = ['Performance Gear', 'Footwear', 'Recovery Products', 'Data Analytics', 'Media & Broadcast', 'Youth Development', 'International Talent'];
+  
   const names = [
-    'Elena Vasquez', 'Kim Nguyen', 'Jordan Smith', 'Mateo Garcia', 'Zara Williams', 
-    'Aiden Thompson', 'Maya Johnson', 'Liam Wilson', 'Nia Parker', 'Kai Rodriguez',
-    'Zoe Mitchell', 'Xavier Thomas', 'Aaliyah Robinson', 'Carlos Hernandez', 'Leila Ahmed',
-    'Tyler Washington', 'Hannah Lee', 'Isaiah Turner', 'Sofia Martinez', 'Oliver Brown'
+    'Kenji Nakamura', 'Zara Mohamed', 'Diego Fernandez', 'Aisha Khan', 'Wei Chen', 
+    'Fatima Al-Sayed', 'Jackson Powell', 'Priya Sharma', 'Liam O\'Connell', 'Elena Petrova',
+    'Mateo Gonzalez', 'Nadia Rahman', 'Xavier Thomas', 'Layla Patel', 'Takeshi Yamamoto',
+    'Gabriela Costa', 'Ibrahim Hassan', 'Sasha Ivanova', 'Kai Wong', 'Amara Okafor'
   ];
+  
   const avatars = [
-    'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
+    'https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
     'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
     'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
     'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
-    'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
-    'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
-    'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
-    'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
-    'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
+    'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
+    'https://images.unsplash.com/photo-1546961329-78bef0414d7c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
+    'https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
+    'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
+    'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
+    'https://images.unsplash.com/photo-1504203772830-87fba72385ee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
+    'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
+    'https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
+    'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
+    'https://images.unsplash.com/photo-1549351236-caca0f174515?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
+    'https://images.unsplash.com/photo-1624224971170-2f84fed5eb5e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
   ];
 
   for (let i = 0; i < count; i++) {
@@ -202,11 +208,33 @@ const generateMoreUsers = (count: number): User[] => {
     if (role === 'athlete') {
       const athleteUser = baseUser as Athlete;
       athleteUser.sport = sports[Math.floor(Math.random() * sports.length)];
-      athleteUser.achievements = [
-        `${Math.floor(Math.random() * 3) + 1}x National Champion`,
-        `${Math.floor(Math.random() * 2) + 1}x International Medal`,
-        `Top Performer in ${athleteUser.sport} ${2020 + Math.floor(Math.random() * 3)}`,
+      
+      // Varied achievements with more realistic data
+      const achievements = [
+        `${Math.floor(Math.random() * 3) + 1}x National Champion in ${athleteUser.sport}`,
+        `Silver Medalist, ${2020 + Math.floor(Math.random() * 3)} World Championships`,
+        `${athleteUser.sport} League MVP ${2020 + Math.floor(Math.random() * 3)}`,
+        `Team Captain, National ${athleteUser.sport} Team`,
+        `Continental Games Gold Medal ${2021 + Math.floor(Math.random() * 2)}`,
+        `Ranked #${Math.floor(Math.random() * 10) + 1} in ${athleteUser.sport} ${2022 + Math.floor(Math.random() * 2)}`,
+        `${athleteUser.sport} Young Player of the Year ${2020 + Math.floor(Math.random() * 3)}`,
+        `Olympics Quarter-finalist ${2021 + Math.floor(Math.random() * 2)}`
       ];
+      
+      athleteUser.achievements = [
+        achievements[Math.floor(Math.random() * achievements.length)],
+        achievements[Math.floor(Math.random() * achievements.length)],
+        achievements[Math.floor(Math.random() * achievements.length)]
+      ].filter((value, index, self) => self.indexOf(value) === index); // Remove duplicates
+      
+      // If we removed too many (because of duplicates), add more
+      while (athleteUser.achievements.length < 3) {
+        const newAchievement = achievements[Math.floor(Math.random() * achievements.length)];
+        if (!athleteUser.achievements.includes(newAchievement)) {
+          athleteUser.achievements.push(newAchievement);
+        }
+      }
+      
       athleteUser.ranking = Math.floor(Math.random() * 100) + 5;
       athleteUser.sponsorships = Math.floor(Math.random() * 5);
       additionalUsers.push(athleteUser);

@@ -20,6 +20,20 @@ const ConnectionCard: React.FC<ConnectionCardProps> = ({ user, isConnected = fal
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
 
+  // Function to get the role-specific gradient
+  const getRoleGradient = (role: string) => {
+    switch (role) {
+      case 'athlete':
+        return 'bg-gradient-to-r from-blue-500 to-cyan-400 hover:from-blue-600 hover:to-cyan-500';
+      case 'sponsor':
+        return 'bg-gradient-to-r from-emerald-500 to-green-400 hover:from-emerald-600 hover:to-green-500';
+      case 'scout':
+        return 'bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-600 hover:to-yellow-500';
+      default:
+        return 'bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-700';
+    }
+  };
+
   const handleConnect = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -56,13 +70,13 @@ const ConnectionCard: React.FC<ConnectionCardProps> = ({ user, isConnected = fal
   const getRoleColor = (role: string) => {
     switch (role) {
       case 'athlete':
-        return 'bg-blue-50 text-blue-600';
+        return 'bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-300';
       case 'sponsor':
-        return 'bg-green-50 text-green-600';
+        return 'bg-green-50 text-green-600 dark:bg-green-900/30 dark:text-green-300';
       case 'scout':
-        return 'bg-amber-50 text-amber-600';
+        return 'bg-amber-50 text-amber-600 dark:bg-amber-900/30 dark:text-amber-300';
       default:
-        return 'bg-gray-50 text-gray-600';
+        return 'bg-gray-50 text-gray-600 dark:bg-gray-800 dark:text-gray-300';
     }
   };
 
@@ -100,7 +114,7 @@ const ConnectionCard: React.FC<ConnectionCardProps> = ({ user, isConnected = fal
             </div>
             {user.role === 'athlete' && (user as any).ranking && (
               <motion.div 
-                className="absolute -right-1 -bottom-1 bg-gradient-to-r from-primary to-blue-600 rounded-full w-5 h-5 flex items-center justify-center text-white text-[10px] font-bold border border-white"
+                className={`absolute -right-1 -bottom-1 ${getRoleGradient('athlete')} rounded-full w-5 h-5 flex items-center justify-center text-white text-[10px] font-bold border border-white shadow-sm`}
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.2, type: "spring" }}
@@ -114,7 +128,13 @@ const ConnectionCard: React.FC<ConnectionCardProps> = ({ user, isConnected = fal
             <div className="flex items-center">
               <h3 className="font-medium text-sm">{user.name}</h3>
               {user.verified && (
-                <Check size={14} className="text-primary ml-1" />
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.6, duration: 0.3, type: "spring" }}
+                >
+                  <Check size={14} className="text-primary ml-1" />
+                </motion.div>
               )}
             </div>
             
@@ -155,7 +175,7 @@ const ConnectionCard: React.FC<ConnectionCardProps> = ({ user, isConnected = fal
             >
               <Button
                 size="sm"
-                className="w-full h-8 bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-700"
+                className={`w-full h-8 ${getRoleGradient(user.role)}`}
                 onClick={handleConnect}
               >
                 <UserPlus size={14} className="mr-1.5" />
