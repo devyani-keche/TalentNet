@@ -1,10 +1,12 @@
 
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { User } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { MessageSquare, UserPlus, UserCheck, ChevronRight, Check } from 'lucide-react';
 import { toast } from 'sonner';
+import { motion } from 'framer-motion';
+import { findOrCreateConversation } from '@/lib/data';
 
 interface ConnectionCardProps {
   user: User;
@@ -41,8 +43,14 @@ const ConnectionCard: React.FC<ConnectionCardProps> = ({ user, isConnected = fal
     e.preventDefault();
     e.stopPropagation();
     
-    // Navigate to messages with this contact
-    navigate('/messages');
+    const userId = '1'; // Logged in user
+    const targetUserId = user.id;
+    
+    // Find or create conversation between users
+    const conversation = findOrCreateConversation(userId, targetUserId);
+    
+    // Navigate to messages with this specific conversation
+    navigate('/messages', { state: { contactId: targetUserId } });
   };
 
   const getRoleColor = (role: string) => {
@@ -59,9 +67,6 @@ const ConnectionCard: React.FC<ConnectionCardProps> = ({ user, isConnected = fal
   };
 
   const getProfileLink = () => {
-    if (user.role === 'athlete') {
-      return `/profile/${user.id}`;
-    }
     return `/profile/${user.id}`;
   };
 
@@ -70,16 +75,23 @@ const ConnectionCard: React.FC<ConnectionCardProps> = ({ user, isConnected = fal
   };
 
   return (
-    <div
+    <motion.div
       className="block cursor-pointer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={handleCardClick}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      whileHover={{ 
+        y: -5,
+        transition: { duration: 0.2 } 
+      }}
     >
-      <div className={`neo-card p-4 transition-all duration-300 ${isHovered ? 'shadow-elevated -translate-y-1' : ''}`}>
+      <div className={`neo-card p-4 transition-all duration-300 ${isHovered ? 'shadow-elevated -translate-y-1 border-primary/20' : ''}`}>
         <div className="flex items-center">
           <div className="relative">
-            <div className="w-12 h-12 rounded-full overflow-hidden">
+            <div className="w-12 h-12 rounded-full overflow-hidden border border-slate-100">
               <img 
                 src={user.avatar} 
                 alt={user.name} 
@@ -87,9 +99,14 @@ const ConnectionCard: React.FC<ConnectionCardProps> = ({ user, isConnected = fal
               />
             </div>
             {user.role === 'athlete' && (user as any).ranking && (
-              <div className="absolute -right-1 -bottom-1 bg-primary rounded-full w-5 h-5 flex items-center justify-center text-white text-[10px] font-bold border border-white">
+              <motion.div 
+                className="absolute -right-1 -bottom-1 bg-gradient-to-r from-primary to-blue-600 rounded-full w-5 h-5 flex items-center justify-center text-white text-[10px] font-bold border border-white"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.2, type: "spring" }}
+              >
                 #{(user as any).ranking}
-              </div>
+              </motion.div>
             )}
           </div>
           
@@ -131,28 +148,40 @@ const ConnectionCard: React.FC<ConnectionCardProps> = ({ user, isConnected = fal
               <span>Pending</span>
             </Button>
           ) : (
-            <Button
-              size="sm"
-              className="flex-1 h-8"
-              onClick={handleConnect}
+            <motion.div 
+              className="flex-1"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <UserPlus size={14} className="mr-1.5" />
-              <span>Connect</span>
-            </Button>
+              <Button
+                size="sm"
+                className="w-full h-8 bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-700"
+                onClick={handleConnect}
+              >
+                <UserPlus size={14} className="mr-1.5" />
+                <span>Connect</span>
+              </Button>
+            </motion.div>
           )}
           
-          <Button
-            variant="outline"
-            size="sm"
-            className="flex-1 h-8"
-            onClick={handleMessage}
+          <motion.div 
+            className="flex-1" 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <MessageSquare size={14} className="mr-1.5" />
-            <span>Message</span>
-          </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className="w-full h-8 hover:border-primary/50 hover:bg-blue-50/30"
+              onClick={handleMessage}
+            >
+              <MessageSquare size={14} className="mr-1.5" />
+              <span>Message</span>
+            </Button>
+          </motion.div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

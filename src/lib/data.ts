@@ -1,5 +1,5 @@
 
-import { Athlete, ConnectionRequest, Conversation, Message, Notification, Scout, Sponsor, User } from './types';
+import { Athlete, ConnectionRequest, Conversation, Message, Notification, Scout, Sponsor, User, UserRole } from './types';
 import { v4 as uuidv4 } from 'uuid';
 
 // Helper function to generate a random date in the last year
@@ -11,7 +11,7 @@ const randomDate = (start = new Date(Date.now() - 31536000000), end = new Date()
 export const athletes: Athlete[] = [
   {
     id: '1',
-    name: 'Alex Johnson',
+    name: 'Marcus Taylor',
     role: 'athlete',
     avatar: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
     bio: 'Olympic gold medalist in 100m sprint. Passionate about inspiring the next generation of athletes.',
@@ -26,7 +26,7 @@ export const athletes: Athlete[] = [
   },
   {
     id: '2',
-    name: 'Samantha Williams',
+    name: 'Olivia Bennett',
     role: 'athlete',
     avatar: 'https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
     bio: 'Professional basketball player with a focus on community outreach and youth development.',
@@ -41,7 +41,7 @@ export const athletes: Athlete[] = [
   },
   {
     id: '3',
-    name: 'David Chen',
+    name: 'Rajan Patel',
     role: 'athlete',
     avatar: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
     bio: 'Tennis champion with a passion for sustainability and eco-friendly sports equipment.',
@@ -56,7 +56,7 @@ export const athletes: Athlete[] = [
   },
   {
     id: '4',
-    name: 'Maria Rodriguez',
+    name: 'Lucia Rodriguez',
     role: 'athlete',
     avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
     bio: 'Soccer player focused on advancing women in sports. Educational advocate and coach.',
@@ -75,11 +75,11 @@ export const athletes: Athlete[] = [
 export const sponsors: Sponsor[] = [
   {
     id: '5',
-    name: 'Global Sports Co.',
+    name: 'NexGen Athletics',
     role: 'sponsor',
     avatar: 'https://images.unsplash.com/photo-1599305445671-ac291c95aaa9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
     bio: 'Market leader in sports equipment and apparel. Looking to sponsor top athletes across all sports.',
-    company: 'Global Sports Co.',
+    company: 'NexGen Athletics',
     specialty: 'Equipment & Apparel',
     connections: ['1', '4'],
     verified: true,
@@ -88,11 +88,11 @@ export const sponsors: Sponsor[] = [
   },
   {
     id: '6',
-    name: 'HealthFit Nutrition',
+    name: 'VitalBoost Nutrition',
     role: 'sponsor',
     avatar: 'https://images.unsplash.com/photo-1559526324-593bc073d938?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
     bio: 'Premium sports nutrition brand specializing in performance supplements and recovery products.',
-    company: 'HealthFit Nutrition',
+    company: 'VitalBoost Nutrition',
     specialty: 'Nutrition & Supplements',
     connections: ['2'],
     verified: true,
@@ -101,11 +101,11 @@ export const sponsors: Sponsor[] = [
   },
   {
     id: '7',
-    name: 'Tech Athletics',
+    name: 'Apex Tech Sports',
     role: 'sponsor',
     avatar: 'https://images.unsplash.com/photo-1521119989659-a83eee488004?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
     bio: 'Innovative sports technology company focusing on performance tracking and enhancement tools.',
-    company: 'Tech Athletics',
+    company: 'Apex Tech Sports',
     specialty: 'Sports Technology',
     connections: ['3'],
     verified: true,
@@ -118,7 +118,7 @@ export const sponsors: Sponsor[] = [
 export const scouts: Scout[] = [
   {
     id: '8',
-    name: 'James Wilson',
+    name: 'Daniel Harrison',
     role: 'scout',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
     bio: 'Experienced talent scout specializing in track and field with over 15 years in athlete development.',
@@ -131,11 +131,11 @@ export const scouts: Scout[] = [
   },
   {
     id: '9',
-    name: 'Emily Parker',
+    name: 'Sophia Chen',
     role: 'scout',
     avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
     bio: 'Basketball talent scout focusing on collegiate and international recruitment for professional teams.',
-    company: 'Parker Scouting',
+    company: 'Global Talent Network',
     specialty: 'Basketball',
     connections: ['2'],
     verified: true,
@@ -144,11 +144,11 @@ export const scouts: Scout[] = [
   },
   {
     id: '10',
-    name: 'Michael Thompson',
+    name: 'Jamal Brooks',
     role: 'scout',
     avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
     bio: 'Tennis talent scout with connections to major tournaments and academies worldwide.',
-    company: 'Global Tennis Network',
+    company: 'Premier Tennis Network',
     specialty: 'Tennis',
     connections: ['3'],
     verified: true,
@@ -157,30 +157,42 @@ export const scouts: Scout[] = [
   },
 ];
 
-// Generate more users by cloning and modifying existing ones
+// Generate more diverse users 
 const generateMoreUsers = (count: number): User[] => {
   const additionalUsers: User[] = [];
   const sports = ['Soccer', 'Basketball', 'Tennis', 'Swimming', 'Gymnastics', 'Track & Field', 'Baseball', 'Football', 'Volleyball', 'Golf'];
-  const companies = ['PowerSport Inc.', 'Athletic Vision', 'Peak Performance', 'GoldMedal Agency', 'Champion Sponsors', 'Victory Talent', 'Elite Scouting'];
+  const companies = ['Elevate Sports Inc.', 'Victory Vision', 'Peak Performance', 'Elite Talent Agency', 'Champion Sponsors', 'Victory Talent', 'Elite Scouting'];
   const specialties = ['Equipment', 'Apparel', 'Nutrition', 'Technology', 'Media', 'Youth Development', 'Professional'];
+  const names = [
+    'Elena Vasquez', 'Kim Nguyen', 'Jordan Smith', 'Mateo Garcia', 'Zara Williams', 
+    'Aiden Thompson', 'Maya Johnson', 'Liam Wilson', 'Nia Parker', 'Kai Rodriguez',
+    'Zoe Mitchell', 'Xavier Thomas', 'Aaliyah Robinson', 'Carlos Hernandez', 'Leila Ahmed',
+    'Tyler Washington', 'Hannah Lee', 'Isaiah Turner', 'Sofia Martinez', 'Oliver Brown'
+  ];
   const avatars = [
     'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
     'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
     'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
     'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
     'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
+    'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
+    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
+    'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
+    'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
+    'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80',
   ];
 
   for (let i = 0; i < count; i++) {
     const roles: UserRole[] = ['athlete', 'sponsor', 'scout'];
     const role = roles[Math.floor(Math.random() * roles.length)];
     const id = (athletes.length + sponsors.length + scouts.length + i + 1).toString();
+    const name = names[i % names.length];
     const baseUser: User = {
       id,
-      name: `User ${id}`,
+      name,
       role,
-      avatar: avatars[Math.floor(Math.random() * avatars.length)],
-      bio: `Bio for user ${id} in the role of ${role}.`,
+      avatar: avatars[i % avatars.length],
+      bio: `${name} is a ${role === 'athlete' ? 'professional athlete' : role === 'sponsor' ? 'sports sponsor' : 'talent scout'} with a passion for excellence in the sports industry.`,
       connections: [],
       verified: Math.random() > 0.3,
       joined: randomDate(new Date(2020, 0, 1)),
@@ -191,9 +203,9 @@ const generateMoreUsers = (count: number): User[] => {
       const athleteUser = baseUser as Athlete;
       athleteUser.sport = sports[Math.floor(Math.random() * sports.length)];
       athleteUser.achievements = [
-        `Achievement 1 for ${id}`,
-        `Achievement 2 for ${id}`,
-        `Achievement 3 for ${id}`,
+        `${Math.floor(Math.random() * 3) + 1}x National Champion`,
+        `${Math.floor(Math.random() * 2) + 1}x International Medal`,
+        `Top Performer in ${athleteUser.sport} ${2020 + Math.floor(Math.random() * 3)}`,
       ];
       athleteUser.ranking = Math.floor(Math.random() * 100) + 5;
       athleteUser.sponsorships = Math.floor(Math.random() * 5);
@@ -230,12 +242,12 @@ export const conversations: Conversation[] = [
   {
     id: '1',
     participants: ['1', '5'],
-    unreadCount: 0,
+    unreadCount: 2,
   },
   {
     id: '2',
     participants: ['2', '6'],
-    unreadCount: 2,
+    unreadCount: 3,
   },
   {
     id: '3',
@@ -245,7 +257,17 @@ export const conversations: Conversation[] = [
   {
     id: '4',
     participants: ['1', '8'],
+    unreadCount: 2,
+  },
+  {
+    id: '5',
+    participants: ['1', '9'],
     unreadCount: 1,
+  },
+  {
+    id: '6',
+    participants: ['1', '11'],
+    unreadCount: 0,
   },
 ];
 
@@ -255,7 +277,7 @@ export const messages: Message[] = [
     id: '1',
     senderId: '5',
     receiverId: '1',
-    content: 'Hi Alex, we\'re interested in discussing a potential sponsorship opportunity with you.',
+    content: 'Hi Marcus, we\'re interested in discussing a potential sponsorship opportunity with you.',
     timestamp: new Date(Date.now() - 86400000 * 3).toISOString(),
     read: true,
   },
@@ -273,34 +295,58 @@ export const messages: Message[] = [
     receiverId: '1',
     content: 'Great! We\'re preparing a proposal with details. Are you available for a call next week?',
     timestamp: new Date(Date.now() - 86400000).toISOString(),
-    read: true,
+    read: false,
   },
   {
     id: '4',
-    senderId: '6',
-    receiverId: '2',
-    content: 'Samantha, we loved your recent championship performance. Would you be interested in a nutrition sponsorship?',
-    timestamp: new Date(Date.now() - 86400000 * 2).toISOString(),
-    read: true,
+    senderId: '5',
+    receiverId: '1',
+    content: 'We\'d like to offer you our premium sponsorship package worth $150,000 annually.',
+    timestamp: new Date(Date.now() - 43200000).toISOString(),
+    read: false,
   },
   {
     id: '5',
     senderId: '6',
     receiverId: '2',
+    content: 'Olivia, we loved your recent championship performance. Would you be interested in a nutrition sponsorship?',
+    timestamp: new Date(Date.now() - 86400000 * 2).toISOString(),
+    read: true,
+  },
+  {
+    id: '6',
+    senderId: '6',
+    receiverId: '2',
     content: 'We have a new product line launching next month that would align perfectly with your brand.',
+    timestamp: new Date(Date.now() - 3600000 * 10).toISOString(),
+    read: false,
+  },
+  {
+    id: '7',
+    senderId: '6',
+    receiverId: '2',
+    content: 'The campaign would involve social media promotion and appearances at our product launch events.',
+    timestamp: new Date(Date.now() - 3600000 * 5).toISOString(),
+    read: false,
+  },
+  {
+    id: '8',
+    senderId: '6',
+    receiverId: '2',
+    content: 'Let us know if you\'re available to discuss this opportunity in more detail.',
     timestamp: new Date(Date.now() - 3600000).toISOString(),
     read: false,
   },
   {
-    id: '6',
+    id: '9',
     senderId: '7',
     receiverId: '3',
-    content: 'David, our new racket technology would be perfect for your style of play. Would you be interested in testing it?',
+    content: 'Rajan, our new racket technology would be perfect for your style of play. Would you be interested in testing it?',
     timestamp: new Date(Date.now() - 86400000 * 4).toISOString(),
     read: true,
   },
   {
-    id: '7',
+    id: '10',
     senderId: '3',
     receiverId: '7',
     content: 'That sounds interesting. I\'m always looking for equipment that can enhance my performance.',
@@ -308,11 +354,27 @@ export const messages: Message[] = [
     read: true,
   },
   {
-    id: '8',
+    id: '11',
     senderId: '8',
     receiverId: '1',
-    content: 'Alex, I was impressed by your recent performance. Let\'s discuss some potential opportunities.',
+    content: 'Marcus, I was impressed by your recent performance. Let\'s discuss some potential opportunities.',
+    timestamp: new Date(Date.now() - 1800000 * 3).toISOString(),
+    read: false,
+  },
+  {
+    id: '12',
+    senderId: '8',
+    receiverId: '1',
+    content: 'My agency is representing several major international competitions looking for athletes of your caliber.',
     timestamp: new Date(Date.now() - 1800000).toISOString(),
+    read: false,
+  },
+  {
+    id: '13',
+    senderId: '9',
+    receiverId: '1',
+    content: 'Hello Marcus, I\'m reaching out from Global Talent Network. We\'d love to have you join our roster of elite athletes.',
+    timestamp: new Date(Date.now() - 86400000 * 1.5).toISOString(),
     read: false,
   },
 ];
@@ -343,6 +405,22 @@ export const connectionRequests: ConnectionRequest[] = [
     timestamp: new Date(Date.now() - 432000000).toISOString(),
     status: 'rejected',
   },
+  {
+    id: '4',
+    senderId: '14',
+    receiverId: '1',
+    message: 'Impressed with your achievements! Would love to connect.',
+    timestamp: new Date(Date.now() - 86400000).toISOString(),
+    status: 'pending',
+  },
+  {
+    id: '5',
+    senderId: '15',
+    receiverId: '1',
+    message: 'Looking for ambassadors for our new sports line. Interested?',
+    timestamp: new Date(Date.now() - 129600000).toISOString(),
+    status: 'pending',
+  },
 ];
 
 // Generate Notifications
@@ -351,7 +429,7 @@ export const notifications: Notification[] = [
     id: '1',
     userId: '1',
     type: 'connection',
-    content: 'Global Sports Co. accepted your connection request',
+    content: 'NexGen Athletics accepted your connection request',
     timestamp: new Date(Date.now() - 86400000).toISOString(),
     read: false,
     actionId: '5',
@@ -360,22 +438,48 @@ export const notifications: Notification[] = [
     id: '2',
     userId: '1',
     type: 'message',
-    content: 'You have a new message from Global Sports Co.',
+    content: 'You have a new message from NexGen Athletics',
     timestamp: new Date(Date.now() - 43200000).toISOString(),
-    read: true,
+    read: false,
     actionId: '3',
   },
   {
     id: '3',
+    userId: '1',
+    type: 'message',
+    content: 'You have a new message from Daniel Harrison',
+    timestamp: new Date(Date.now() - 21600000).toISOString(),
+    read: false,
+    actionId: '11',
+  },
+  {
+    id: '4',
+    userId: '1',
+    type: 'connection',
+    content: 'You have 3 pending connection requests',
+    timestamp: new Date(Date.now() - 10800000).toISOString(),
+    read: false,
+  },
+  {
+    id: '5',
+    userId: '1',
+    type: 'sponsorship',
+    content: 'NexGen Athletics has offered you a sponsorship',
+    timestamp: new Date(Date.now() - 5400000).toISOString(),
+    read: false,
+    actionId: '5',
+  },
+  {
+    id: '6',
     userId: '2',
     type: 'sponsorship',
-    content: 'HealthFit Nutrition has offered you a sponsorship',
+    content: 'VitalBoost Nutrition has offered you a sponsorship',
     timestamp: new Date(Date.now() - 172800000).toISOString(),
     read: false,
     actionId: '6',
   },
   {
-    id: '4',
+    id: '7',
     userId: '3',
     type: 'ranking',
     content: 'Congratulations! Your ranking has improved to #3',
@@ -442,6 +546,27 @@ export const getUserNotifications = (userId: string): Notification[] => {
   return notifications.filter(n => n.userId === userId);
 };
 
+// Find or create a conversation between two users
+export const findOrCreateConversation = (userId1: string, userId2: string): Conversation => {
+  const existingConversation = conversations.find(
+    c => c.participants.includes(userId1) && c.participants.includes(userId2)
+  );
+  
+  if (existingConversation) {
+    return existingConversation;
+  }
+  
+  // Create a new conversation
+  const newConversation: Conversation = {
+    id: generateId(),
+    participants: [userId1, userId2],
+    unreadCount: 0
+  };
+  
+  conversations.push(newConversation);
+  return newConversation;
+};
+
 // Function to search users
 export const searchUsers = (query: string, filters?: { role?: UserRole; sport?: string; ranking?: number; }): User[] => {
   return allUsers.filter(user => {
@@ -464,4 +589,25 @@ export const searchUsers = (query: string, filters?: { role?: UserRole; sport?: 
 // Generate fake ID for new entities
 export const generateId = (): string => {
   return uuidv4();
+};
+
+// Get unread message count for a user
+export const getUnreadMessageCount = (userId: string): number => {
+  const userConversations = getUserConversations(userId);
+  return userConversations.reduce((total, conv) => total + conv.unreadCount, 0);
+};
+
+// Get unread notification count for a user
+export const getUnreadNotificationCount = (userId: string): number => {
+  const userNotifications = getUserNotifications(userId);
+  return userNotifications.filter(n => !n.read).length;
+};
+
+// Update user profile info
+export const updateUserProfile = (userId: string, updates: Partial<User>): User | undefined => {
+  const userIndex = allUsers.findIndex(u => u.id === userId);
+  if (userIndex === -1) return undefined;
+  
+  allUsers[userIndex] = { ...allUsers[userIndex], ...updates };
+  return allUsers[userIndex];
 };
